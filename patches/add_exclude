@@ -3,9 +3,7 @@ Top:    6ca0faad290b742bca144f15910094822e6fe984
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 13:00:19 -0800
 
-Change fabtests source
-
-The ofiwg/fabtests repo is frozen and was merged with the libfabric repo
+Add test exclude file if one exists
 
 
 ---
