@@ -1,5 +1,5 @@
 Bottom: 3a637cce50448fe5e3993a348adcd5541c82344f
-Top:    3a637cce50448fe5e3993a348adcd5541c82344f
+Top:    50dfd05699adca9abcbb4b4be2ae9efe2a665bf6
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 13:00:19 -0800
 
@@ -10,4 +10,36 @@ The ofiwg/fabtests repo is frozen and was merged with the libfabric repo
 
 ---
 
-
+diff --git a/single-node.sh b/single-node.sh
+index 3dd6901..8232b22 100644
+--- a/single-node.sh
++++ b/single-node.sh
+@@ -21,10 +21,7 @@ sudo make install
+ 
+ # Uses the fabtests branch corresponding to the PR's target branch
+ echo "==> Building fabtests"
+-cd $WORKSPACE
+-git clone https://github.com/ofiwg/fabtests
+-cd fabtests
+-git checkout $TARGET_BRANCH
++cd $WORKSPACE/libfabric/fabtests
+ ./autogen.sh
+ ./configure --with-libfabric=$WORKSPACE/libfabric/install/ \
+ 		--prefix=$WORKSPACE/fabtests/install/ \
+@@ -33,7 +30,15 @@ make -j 4
+ sudo make install
+ 
+ # Runs all the tests in the fabtests suite while only expanding failed cases
++declare EXCLUDE=$WORKSPACE/fabtests/install/share/fabtests/test_configs/$PROVIDER/${PROVIDER}.exclude
++if [ -f $EXCLUDE ]; then
++	EXCLUDE="-R -f $EXCLUDE"
++else
++	EXCLUDE=""
++fi
++
+ echo "==> Running fabtests"
+ LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH	\
+ BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug		\
+-$WORKSPACE/fabtests/install/bin/runfabtests.sh -v $PROVIDER 127.0.0.1 127.0.0.1
++$WORKSPACE/fabtests/install/bin/runfabtests.sh -v $EXCLUDE		\
++$PROVIDER 127.0.0.1 127.0.0.1
