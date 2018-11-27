@@ -1,5 +1,5 @@
 Bottom: 992b4894adaf43db8eeb79822d5277b64bccf023
-Top:    6983338213191885a50f127836093828bd2aee93
+Top:    df1041a0728d306ec40778b99962e71f1d3979c3
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 10:54:31 -0800
 
@@ -9,12 +9,14 @@ Add exclude file paths
 ---
 
 diff --git a/single-node.sh b/single-node.sh
-index 9aac601..195353f 100644
+index 9aac601..a00e3c1 100644
 --- a/single-node.sh
 +++ b/single-node.sh
-@@ -35,4 +35,4 @@ sudo make install
+@@ -35,4 +35,6 @@ sudo make install
  echo "==> Running fabtests"
  LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH	\
  BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug		\
 -$WORKSPACE/fabtests/install/bin/runfabtests.sh -v $PROVIDER 127.0.0.1 127.0.0.1
-+$WORKSPACE/fabtests/install/bin/runfabtests.sh -v -R -f $WORSPACE/fabtests/install/share/test_configs/$PROVIDER/$PROVIDER.exclude $PROVIDER 127.0.0.1 127.0.0.1
++$WORKSPACE/fabtests/install/bin/runfabtests.sh -v -R -f			\
++$WORKSPACE/fabtests/install/share/test_configs/$PROVIDER/$PROVIDER.exclude \
++$PROVIDER 127.0.0.1 127.0.0.1
