@@ -35,4 +35,6 @@ sudo make install
 echo "==> Running fabtests"
 LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH	\
 BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug		\
-$WORKSPACE/fabtests/install/bin/runfabtests.sh -v $PROVIDER 127.0.0.1 127.0.0.1
+$WORKSPACE/fabtests/install/bin/runfabtests.sh -v -R -f			\
+$WORKSPACE/fabtests/install/share/test_configs/$PROVIDER/$PROVIDER.exclude \
+$PROVIDER 127.0.0.1 127.0.0.1
