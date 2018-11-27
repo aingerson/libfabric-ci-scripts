@@ -1,5 +1,5 @@
 Bottom: 3a637cce50448fe5e3993a348adcd5541c82344f
-Top:    3a637cce50448fe5e3993a348adcd5541c82344f
+Top:    992b4894adaf43db8eeb79822d5277b64bccf023
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 10:53:08 -0800
 
@@ -8,4 +8,29 @@ Re-enable RxD
 
 ---
 
-
+diff --git a/multi-node.sh b/multi-node.sh
+index 5d3a965..ba29c72 100644
+--- a/multi-node.sh
++++ b/multi-node.sh
+@@ -29,7 +29,7 @@ cd libfabric
+ git fetch origin +refs/pull/$PULL_REQUEST_ID/*:refs/remotes/origin/pr/$PULL_REQUEST_ID/*
+ git checkout $PULL_REQUEST_REF -b PRBranch
+ ./autogen.sh
+-./configure --prefix=$WORKSPACE/libfabric/install/ --enable-debug --enable-mrail --enable-tcp --enable-rxm --disable-rxd
++./configure --prefix=$WORKSPACE/libfabric/install/ --enable-debug --enable-mrail --enable-tcp --enable-rxm
+ make -j 4
+ sudo make install
+ 
+diff --git a/single-node.sh b/single-node.sh
+index 3dd6901..9aac601 100644
+--- a/single-node.sh
++++ b/single-node.sh
+@@ -14,8 +14,7 @@ git checkout $PULL_REQUEST_REF -b PRBranch
+ 				--enable-debug 	\
+ 				--enable-mrail 	\
+ 				--enable-tcp 	\
+-				--enable-rxm	\
+-				--disable-rxd
++				--enable-rxm
+ make -j 4
+ sudo make install
