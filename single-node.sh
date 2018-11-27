@@ -19,7 +19,6 @@ git checkout $PULL_REQUEST_REF -b PRBranch
 make -j 4
 sudo make install
 
-# Uses the fabtests branch corresponding to the PR's target branch
 echo "==> Building fabtests"
 cd $WORKSPACE/libfabric/fabtests
 ./autogen.sh
