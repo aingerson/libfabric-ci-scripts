@@ -1,7 +1,8 @@
 Version: 1
-Previous: 8c088c161b8ec9078291118bcac30b952be02bc5
-Head: 5ae687ad9e487988d805f49fb9aa65bd7d59c5d0
+Previous: af76455c90ce9d1028da045127761354f2b4c8ad
+Head: 3e343c953a34065470be2d939886deeeeb5cd331
 Applied:
   enable_rxd: 5ae687ad9e487988d805f49fb9aa65bd7d59c5d0
+  refresh-temp: 3e343c953a34065470be2d939886deeeeb5cd331
 Unapplied:
 Hidden:
