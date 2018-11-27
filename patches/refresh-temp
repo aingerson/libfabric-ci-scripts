@@ -1,0 +1,19 @@
+Bottom: 992b4894adaf43db8eeb79822d5277b64bccf023
+Top:    6983338213191885a50f127836093828bd2aee93
+Author: aingerson <alexia.ingerson@intel.com>
+Date:   2018-11-27 12:56:21 -0800
+
+Refresh of add_exclude
+
+---
+
+diff --git a/single-node.sh b/single-node.sh
+index 9aac601..195353f 100644
+--- a/single-node.sh
++++ b/single-node.sh
+@@ -35,4 +35,4 @@ sudo make install
+ echo "==> Running fabtests"
+ LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH	\
+ BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug		\
+-$WORKSPACE/fabtests/install/bin/runfabtests.sh -v $PROVIDER 127.0.0.1 127.0.0.1
++$WORKSPACE/fabtests/install/bin/runfabtests.sh -v -R -f $WORSPACE/fabtests/install/share/test_configs/$PROVIDER/$PROVIDER.exclude $PROVIDER 127.0.0.1 127.0.0.1
