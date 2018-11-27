@@ -1,5 +1,5 @@
 Bottom: 3a637cce50448fe5e3993a348adcd5541c82344f
-Top:    3a637cce50448fe5e3993a348adcd5541c82344f
+Top:    163e43048e0e8d45f32c7f7589ffd95f78c54fb9
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 13:00:19 -0800
 
@@ -10,4 +10,51 @@ The ofiwg/fabtests repo is frozen and was merged with the libfabric repo
 
 ---
 
-
+diff --git a/multi-node.sh b/multi-node.sh
+index 5d3a965..64bae0b 100644
+--- a/multi-node.sh
++++ b/multi-node.sh
+@@ -33,12 +33,8 @@ git checkout $PULL_REQUEST_REF -b PRBranch
+ make -j 4
+ sudo make install
+ 
+-# Uses the fabtests branch corresponding to the PR's target branch
+ echo "==> Building fabtests"
+-cd $WORKSPACE
+-git clone https://github.com/ofiwg/fabtests
+-cd fabtests
+-git checkout $TARGET_BRANCH
++cd $WORKSPACE/libfabric/fabtests
+ ./autogen.sh
+ ./configure --with-libfabric=$WORKSPACE/libfabric/install/ --prefix=$WORKSPACE/fabtests/install/ --enable-debug
+ make -j 4
+@@ -64,10 +60,7 @@ ssh -T -o StrictHostKeyChecking=no $USER@$SERVER_IP <<-EOF && { echo "Build succ
+   make -j 4
+   make install
+   echo "==> Building fabtests on second node"
+-  cd $WORKSPACE
+-  git clone https://github.com/ofiwg/fabtests
+-  cd fabtests
+-  git checkout $TARGET_BRANCH
++  cd $WORKSPACE/libfabric/fabtests
+   ./autogen.sh
+   ./configure --with-libfabric=$WORKSPACE/libfabric/install/ --prefix=$WORKSPACE/fabtests/install/ --enable-debug
+   make -j 4
+diff --git a/single-node.sh b/single-node.sh
+index 3dd6901..c2f2cf2 100644
+--- a/single-node.sh
++++ b/single-node.sh
+@@ -19,12 +19,8 @@ git checkout $PULL_REQUEST_REF -b PRBranch
+ make -j 4
+ sudo make install
+ 
+-# Uses the fabtests branch corresponding to the PR's target branch
+ echo "==> Building fabtests"
+-cd $WORKSPACE
+-git clone https://github.com/ofiwg/fabtests
+-cd fabtests
+-git checkout $TARGET_BRANCH
++cd $WORKSPACE/libfabric/fabtests
+ ./autogen.sh
+ ./configure --with-libfabric=$WORKSPACE/libfabric/install/ \
+ 		--prefix=$WORKSPACE/fabtests/install/ \
