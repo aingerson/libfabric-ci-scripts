@@ -1,5 +1,5 @@
 Bottom: 163e43048e0e8d45f32c7f7589ffd95f78c54fb9
-Top:    145a50cc09a8e694ae7d5f7dbaaac7f5b7a1a89b
+Top:    6ca0faad290b742bca144f15910094822e6fe984
 Author: aingerson <alexia.ingerson@intel.com>
 Date:   2018-11-27 13:00:19 -0800
 
@@ -10,6 +10,25 @@ The ofiwg/fabtests repo is frozen and was merged with the libfabric repo
 
 ---
 
+diff --git a/multi-node.sh b/multi-node.sh
+index 64bae0b..a086840 100644
+--- a/multi-node.sh
++++ b/multi-node.sh
+@@ -68,7 +68,13 @@ ssh -T -o StrictHostKeyChecking=no $USER@$SERVER_IP <<-EOF && { echo "Build succ
+   # Runs all tests in the fabtests suite between two nodes while only expanding
+   # failed cases
+   echo "==> Running fabtests between two nodes"
+-  LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug $WORKSPACE/fabtests/install/bin/runfabtests.sh -v $PROVIDER $CLIENT_IP $SERVER_IP
++  declare EXCLUDE=$WORKSPACE/fabtests/install/share/fabtests/test_configs/$PROVIDER/${PROVIDER}.exclude
++  if [ -f $EXCLUDE ]; then
++  	EXCLUDE="-R -f $EXCLUDE"
++  else
++  	EXCLUDE=""
++  fi
++  LD_LIBRARY_PATH=$WORKSPACE/fabtests/install/lib/:$LD_LIBRARY_PATH BIN_PATH=$WORKSPACE/fabtests/install/bin/ FI_LOG_LEVEL=debug $WORKSPACE/fabtests/install/bin/runfabtests.sh -v $EXCLUDE $PROVIDER $CLIENT_IP $SERVER_IP
+ EOF
+ # Terminates second node. First node will be terminated in a post build task to
+ # prevent build failure
 diff --git a/single-node.sh b/single-node.sh
 index c2f2cf2..1eaef64 100644
 --- a/single-node.sh
